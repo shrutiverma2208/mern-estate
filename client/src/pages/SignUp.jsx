@@ -37,7 +37,7 @@ setFormData({
      navigate('/sign-in');
     } catch (error) {
       setLoading(false);
-      setError(error.me)
+      setError(error.message)
     }
     
     };
