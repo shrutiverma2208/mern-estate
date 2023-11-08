@@ -123,7 +123,25 @@ const handleShowListings = async() =>{
     }
     setUserListings(data);
   } catch (error) {
-    setShowListingError(true)
+    setShowListingError(true);
+  }
+};
+
+const handleListingDelete = async (listingId) =>{
+  try {
+    const res = await fetch(`/api/listing/delete/${listingId}`,{
+      method: 'DELETE',
+    });
+    const data = await res.json();
+    if(data.success === false){
+      console.log(data.message);
+      return;
+    }
+    setUserListings((prev)=>
+    prev.filter((listing)=> listing._id!== listingId));
+    
+  } catch (error) {
+    console.log(error.message);
   }
 }
 
@@ -230,7 +248,7 @@ const handleShowListings = async() =>{
               </Link>
 
               <div className="flex flex-col">
-                <button className="text-red-700 
+                <button onClick={()=>handleListingDelete(listing._id)} className="text-red-700 
                 uppercase">Delete</button>
                 <button className="text-green-700 
                 uppercase">Edit</button>
