@@ -53,7 +53,7 @@ export const getListing = async(req,res,next) =>{
     try {
         const listing = await Listing.findById(req.params.id);
         if(!listing){
-            return next(errorHandler(404,'Listing not found'))
+            return next(errorHandler(404,'Listing not found!'))
         }
         res.status(200).json(listing);
     } catch (error) {
@@ -63,7 +63,7 @@ export const getListing = async(req,res,next) =>{
 
 export const getListings = async (req, res, next) => {
     try{
-        const limit = parseInt(req.querry.limit) || 9;
+        const limit = parseInt(req.query.limit) || 9;
         const startIndex = parseInt(req.query.startIndex) || 0;
         let offer = req.query.offer;
 
@@ -94,7 +94,7 @@ export const getListings = async (req, res, next) => {
 
         const order = req.query.order || 'desc';
 
-        const listing = await Listing.find({
+        const listings = await Listing.find({
             name: {$regex: searchTerm, $options:'i'},
             offer,
             furnished,
@@ -106,7 +106,7 @@ export const getListings = async (req, res, next) => {
         .limit(limit)
         .skip(startIndex);
 
-        return res.status(200).json(listing);
+        return res.status(200).json(listings);
 
     }catch(error){
         next(error);

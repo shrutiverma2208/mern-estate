@@ -4,7 +4,7 @@ import {useSelector} from 'react-redux';
 import { useState, useEffect } from 'react';
 
 const Header = () => {
-  const {currentUser} = useSelector(state => state.user)
+  const {currentUser} = useSelector((state) => state.user)
   const [searchTerm, setSearchTerm] = useState(''); 
   const navigate = useNavigate();
   const handleSubmit =(e) =>{
@@ -33,10 +33,12 @@ const Header = () => {
 
 </h1>
 </Link>
-<form onSubmit={handleSubmit} className='bg-slate-100 p-2 rounded-lg flex items-center'>
+<form 
+  onSubmit={handleSubmit} 
+  className='bg-slate-100 p-2 rounded-lg flex items-center'>
     <input 
     type='text' 
-    placeholder='search...' 
+    placeholder='Search...' 
     className='bg-transparent focus:outline-none w-24 sm:w-64'
     value={searchTerm}
     onChange={(e) =>setSearchTerm(e.target.value)}
@@ -47,7 +49,7 @@ const Header = () => {
     </button>
 </form>
 <ul className='flex gap-4'>
-    <Link to='/>'>
+    <Link to='/'>
     <li className='hidden sm:inline text-slate-700 hover:underline'>Home</li>
     </Link>
     <Link to='/about'>
@@ -55,8 +57,12 @@ const Header = () => {
     </Link>
     <Link to='/profile'>
       {currentUser?(
-        <img className='rounded-full h-8 w-8 object-cover' src={currentUser.avatar} alt='profile' />
-      ):( <li className='hidden sm:inline text-slate-700 hover:underline'>SignIn</li>
+        <img 
+        className='rounded-full h-7 w-7 object-cover' 
+        src={currentUser.avatar} 
+        alt='profile' />
+      ):( 
+      <li className='hidden sm:inline text-slate-700 hover:underline'>SignIn</li>
       )}
     </Link>
 </ul>
